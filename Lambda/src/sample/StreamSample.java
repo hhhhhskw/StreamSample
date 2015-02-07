@@ -14,52 +14,28 @@ import java.util.stream.Stream;
 
 public class StreamSample {
 
-	private static void skip(List<String> randList) {
-		List<String> skippedList = randList.stream()
-				.skip(3)
+	private static void filter(List<String> simpleList) {
+		List<String> filteredList = simpleList.stream()
+				.filter(s -> s.length() == 2)
 				.collect(Collectors.toList());
-		System.out.println(skippedList);
+		System.out.println(filteredList);
 	}
 
-	private static void limit(List<String> randList) {
-		List<String> limitedList = randList.stream()
-				.limit(4)
+	private static void map(List<String> pathList) {
+		List<Path> mappedList = pathList.stream()
+				.map(Paths::get)
 				.collect(Collectors.toList());
-		System.out.println(limitedList);
+		System.out.println(mappedList);
 	}
 
-	private static void peek(List<String> randList) {
-		Logger logger = Logger.getLogger(StreamSample.class.getName());
-		randList.stream()
-				.peek(t -> logger.log(Level.FINE, t))
-				.map(t -> t + "|" +  t)
-				.peek(t -> logger.log(Level.FINE, t))
-				.forEach(System.out::println);
+	private static void mapToInt(List<String> simpleList) {
+		int sum = simpleList.stream()
+				.mapToInt(s -> s.length())
+				.sum();
+		System.out.println(sum);
 	}
 
-	private static void sortWithComparator(List<String> randList) {
-		List<String> sortedList = randList.stream()
-				.sorted((s1, s2) -> s1.length() - s2.length())
-				.collect(Collectors.toList());
-		System.out.println(sortedList);
-	}
-
-	private static void sort(List<String> randList) {
-		List<String> sortedList = randList.stream()
-				.sorted()
-				.collect(Collectors.toList());
-		System.out.println(sortedList);
-	}
-
-	private static void distinct(List<String> randList) {
-		List<String> distinctedList = randList.stream()
-				.distinct()
-				.collect(Collectors.toList());
-		System.out.println(distinctedList);
-		
-	}
-
-	private static void flatMap(List<String> numList) {
+	private static void floatMap(List<String> numList) {
 		List<String> result = numList.stream()
 				.flatMap(s -> {
 					String target = s.substring(0, 1);
@@ -74,25 +50,49 @@ public class StreamSample {
 		System.out.println(result);
 	}
 
-	private static void mapToInt(List<String> simpleList) {
-		int sum = simpleList.stream()
-				.mapToInt(s -> s.length())
-				.sum();
-		System.out.println(sum);
+	private static void distinct(List<String> randList) {
+		List<String> distinctedList = randList.stream()
+				.distinct()
+				.collect(Collectors.toList());
+		System.out.println(distinctedList);
+		
 	}
 
-	private static void map(List<String> pathList) {
-		List<Path> mappedList = pathList.stream()
-				.map(Paths::get)
+	private static void sort(List<String> randList) {
+		List<String> sortedList = randList.stream()
+				.sorted()
 				.collect(Collectors.toList());
-		System.out.println(mappedList);
+		System.out.println(sortedList);
 	}
 
-	private static void filter(List<String> simpleList) {
-		List<String> filteredList = simpleList.stream()
-				.filter(s -> s.length() == 2)
+	private static void sortWithComparator(List<String> randList) {
+		List<String> sortedList = randList.stream()
+				.sorted((s1, s2) -> s1.length() - s2.length())
 				.collect(Collectors.toList());
-		System.out.println(filteredList);
+		System.out.println(sortedList);
+	}
+
+	private static void peek(List<String> randList) {
+		Logger logger = Logger.getLogger(StreamSample.class.getName());
+		randList.stream()
+				.peek(t -> logger.log(Level.FINE, t))
+				.map(t -> t + "|" +  t)
+				.peek(t -> logger.log(Level.FINE, t))
+				.forEach(System.out::println);
+	}
+
+	private static void limit(List<String> randList) {
+		List<String> limitedList = randList.stream()
+				.limit(4)
+				.collect(Collectors.toList());
+		System.out.println(limitedList);
+	}
+
+	private static void skip(List<String> randList) {
+		List<String> skippedList = randList.stream()
+				.skip(3)
+				.collect(Collectors.toList());
+		System.out.println(skippedList);
 	}
 
 	private static void toArray(List<String> randList) {
@@ -183,7 +183,7 @@ public class StreamSample {
 		mapToInt(simpleList);
 
 		// リストに含まれる値を分割する
-		flatMap(numList);
+		floatMap(numList);
 		
 		// リストに含まれる値の重複を排除する
 		distinct(randList);
